@@ -1,6 +1,7 @@
 import express,{Express} from "express";
 import { closeDb, connectToDb } from "./db/config";
 import router  from "./router/routes";
+import { startCryptoJob } from "./jobs/scheduler";
 
 
 const app:Express = express();
@@ -20,6 +21,7 @@ const startServer = async () => {
     app.listen(PORT, () => {
       console.log(`Server is running at http://localhost:${PORT}`);
     });
+    startCryptoJob();
   } catch (error: any) {
     console.error(`Error starting server: ${error.message}`);
     process.exit(1);
